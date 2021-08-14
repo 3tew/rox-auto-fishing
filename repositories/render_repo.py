@@ -45,8 +45,10 @@ def crop_screenshot(sct):
         'width': 240,
         'height': 250
     }
-    config.CENTER_X = 1570
-    config.CENTER_Y = 775
+    config.CENTER_X = int((75.52 * int(config.SCREEN_WIDTH)) /
+                          100) + (config.BOUNDING_BOX["width"] / 2)
+    config.CENTER_Y = int((60.2 * int(config.SCREEN_HEIGHT)) /
+                          100) + (config.BOUNDING_BOX["height"] / 2)
     sct.get_pixels(config.BOUNDING_BOX)
     config.FRAME = Image.frombytes(
         'RGB', (sct.width, sct.height), sct.image)
@@ -59,4 +61,4 @@ def show(detector):
     center_point()
     # Rendering
     cv2.imshow('RO:X - Auto Fishing v%s' % config.VERSION,
-               np.hstack([config.FRAME])) # add 'green' for mask debug
+               np.hstack([config.FRAME]))  # add 'green' for mask debug
