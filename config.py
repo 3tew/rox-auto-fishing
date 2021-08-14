@@ -1,6 +1,9 @@
 # Initialize Global Variables
 VERSION = '1.3'
 PID = ''
+SCREEN_WIDTH = 0
+SCREEN_HEIGHT = 0
+
 IS_ACTIVE = False
 HOLD = True
 

@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 import os
-import psutil
-import ctypes
-from threading import Thread
+import sys
 import time
 import numpy as np
 import cv2
 from mss import mss
-from win32api import GetSystemMetrics
+import tkinter as tk
 
 import config
 from repositories import detector_repo
@@ -15,11 +13,13 @@ from repositories import fishing_repo
 from repositories import render_repo
 
 config.PID = os.getpid()
+root = tk.Tk()
+root.withdraw()
 sct = mss()
 
 # Set title
 title = "RO:X Next Generation - Auto Fishing version " + str(config.VERSION)
-ctypes.windll.kernel32.SetConsoleTitleW(title)
+sys.stdout.write(title)
 # Clear console
 os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 
@@ -27,8 +27,10 @@ print("RO:X Next Generation - Auto Fishing version %s" % config.VERSION)
 print("Made by Thanapat Maliphan. (fb.com/thanatos1995)\n")
 
 print("Screen resolution")
-print("width = ", GetSystemMetrics(0))
-print("height = ", GetSystemMetrics(1))
+config.SCREEN_WIDTH = root.winfo_screenwidth()
+config.SCREEN_HEIGHT = root.winfo_screenheight()
+print("width = ", str(config.SCREEN_WIDTH))
+print("height = ", str(config.SCREEN_HEIGHT))
 
 print("\nPress 'R' button to reset limit.")
 print("Press 'H' button to toggle fishing.")
@@ -84,6 +86,4 @@ def main_function():
 
 
 if __name__ == "__main__":
-    thread = Thread(target=main_function)
-    thread.start()
-    thread.join()
+    main_function()

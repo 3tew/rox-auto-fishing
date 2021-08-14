@@ -1,9 +1,8 @@
+import sys
 import psutil
-import ctypes
 import cv2
 import numpy as np
 from PIL import Image
-from win32api import GetSystemMetrics
 
 import config
 
@@ -41,8 +40,8 @@ def center_point():
 
 def crop_screenshot(sct):
     config.BOUNDING_BOX = {
-        'left': int((75.52 * int(GetSystemMetrics(0))) / 100),
-        'top': int((60.2 * int(GetSystemMetrics(1))) / 100),
+        'left': int((75.52 * int(config.SCREEN_WIDTH)) / 100),
+        'top': int((60.2 * int(config.SCREEN_HEIGHT)) / 100),
         'width': 240,
         'height': 250
     }
@@ -54,17 +53,10 @@ def crop_screenshot(sct):
 
 
 def show(detector):
-    python_process = psutil.Process(config.PID)
-    memoryUse = str("{:.2f}".format(
-        python_process.memory_info().rss / 1024 ** 2))
-    # Set title
-    title = "RO:X Next Generation - Auto Fishing version " + str(config.VERSION) + " - Status: " + str("Fishing" if not config.HOLD else "Stop") + ", Limit: " + str(
-        config.LIMIT) + ", Count: " + str(config.COUNT) + " | MemoryUse: " + memoryUse + " MB"
-    ctypes.windll.kernel32.SetConsoleTitleW(title)
     # แสดงรายละเอียดบนจอ
     tracking_info(config.CURRENT_TIME)
     # Center point
     center_point()
     # Rendering
     cv2.imshow('RO:X - Auto Fishing v%s' % config.VERSION,
-               np.hstack([config.FRAME]))
+               np.hstack([config.FRAME])) # add 'green' for mask debug
