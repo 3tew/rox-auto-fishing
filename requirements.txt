@@ -1,7 +1,7 @@
 altgraph==0.17
 asgiref==3.4.1
 autopep8==1.5.7
-Django==3.2.6
+Django==3.2.13
 future==0.18.2
 image==1.5.33
 MouseInfo==0.1.3
